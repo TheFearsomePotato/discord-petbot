@@ -1,11 +1,16 @@
 FROM rust as builder
-WORKDIR /usr/src/petbot
-COPY . .
+WORKDIR /appsrc
+RUN cargo new --bin petbot
+WORKDIR /appsrc/petbot
+
+COPY ./Cargo.toml .
 RUN cargo build --release
+RUN rm -r ./src
+COPY ./src /appsrc/petbot/src
 
 FROM debian:buster-slim
 WORKDIR /app
 RUN apt-get update && apt-get install -y libssl1.1 ca-certificates && rm -rf /var/lib/apt/lists/*
 COPY --from=builder /usr/src/petbot/release/petbot ./petbot
-COPY --from=builder /usr/src/petbot/assets ./assets
+COPY ./assets ./assets
 CMD ["./petbot"]
