@@ -6,6 +6,7 @@ WORKDIR /appsrc/discord-petbot
 COPY ./Cargo.toml .
 RUN cargo build --release
 RUN rm -r ./src
+RUN rm ./src/discord-petbot
 COPY . .
 RUN cargo build --release
 
