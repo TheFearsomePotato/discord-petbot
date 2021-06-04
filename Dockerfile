@@ -7,7 +7,7 @@ COPY ./Cargo.toml .
 RUN cargo build --release
 RUN rm -r ./src
 RUN rm ./target/release/discord-petbot
-COPY ./* ./
+COPY . .
 RUN cargo build --release
 
 FROM debian:buster-slim
