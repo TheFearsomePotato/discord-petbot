@@ -7,6 +7,7 @@ COPY ./Cargo.toml .
 RUN cargo build --release
 RUN rm -r ./src
 COPY ./src /appsrc/petbot/src
+RUN cargo build --release
 
 FROM debian:buster-slim
 WORKDIR /app
