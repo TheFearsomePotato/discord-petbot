@@ -3,10 +3,11 @@ WORKDIR /appsrc
 RUN cargo new --bin discord-petbot
 WORKDIR /appsrc/discord-petbot
 
-COPY ./Cargo.toml .
+COPY ./Cargo.toml ./Cargo.toml
 RUN cargo build --release
-RUN rm ./target/release/discord-petbot
-COPY ./src ./src
+RUN rm -r src
+ADD . ./
+RUN rm ./target/release/deps/discord_petbot*
 RUN cargo build --release
 
 FROM debian:buster-slim
